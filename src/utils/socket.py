@@ -11,8 +11,9 @@ def connect():
     print("Connected ✅")
 
 @sio.event
-def message(data):
+def ping(data):
     print(f"[RECV]: {data}")
+    sio.emit('pong','pong')
 
 @sio.event
 def disconnect():
@@ -34,22 +35,25 @@ def send_loop():
         connectFlag = False
         print("Close socket")
 
-def echo_on_event(event_key: str):
-    @sio.on(event_key)
-    def handle_message(data):
-        print(f"📥 받은 메시지 [{event_key}]: {data}")
-        sio.emit(event_key, data)
-        print(f"📤 에코 응답 전송 [{event_key}]: {data}")
-
 def connect_to_server(url: str):
     try:
         sio.connect(url)
         print(f"{url}에 연결되었습니다.")
+        register()
         return True
     except Exception as e:
         print(f"연결 실패: {e}")
         return False
 
+def register():
+    sio.emit('register', {'clientType': 'etc'})
+
 def disconnect_from_server():
     sio.disconnect()
     print("서버와 연결이 종료되었습니다.")
+
+def keep_reconnecting(url: str):
+    while not connectFlag:
+        print("Reconnecting...")
+        time.sleep(5)
+        connectFlag = connect_to_server(url)
