@@ -4,22 +4,27 @@ sio = socketio.Client()
 
 @sio.event
 def connect():
-    print("서버와 연결되었습니다.")
+    print("Connected ✅")
 
 @sio.event
 def message(data):
-    print(f"서버로부터 받은 메시지: {data}")
+    print(f"[RECV]: {data}")
 
 @sio.event
 def disconnect():
-    print("서버와 연결이 끊어졌습니다.")
+    print("Disconnected ❌")
 
-def send_message(message: str):
-    sio.emit("message", message)
+def send_message(eventKey: str, message: str):
+    sio.emit(eventKey, message)
 
 def connect_to_server(url: str):
-    sio.connect(url)
-    print(f"{url}에 연결되었습니다.")
+    try:
+        sio.connect(url)
+        print(f"{url}에 연결되었습니다.")
+        return True
+    except Exception as e:
+        print(f"연결 실패: {e}")
+        return False
 
 def disconnect_from_server():
     sio.disconnect()
