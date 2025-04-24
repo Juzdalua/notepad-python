@@ -1,9 +1,15 @@
+import os
 import socketio
 import time
+from dotenv import load_dotenv
 
 sio = socketio.Client()
 connectFlag = False
-server_url = "http://localhost:6001"
+
+load_dotenv()
+url = os.getenv('SERVER_URL')
+port = os.getenv('SERVER_PORT')
+server_url = f"{url}:{port}"
 
 @sio.event
 def connect():
