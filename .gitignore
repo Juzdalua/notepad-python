@@ -1,0 +1,23 @@
+# 가상환경 폴더
+venv/
+env/
+
+# 파이썬 캐시
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE 설정
+.vscode/
+.idea/
+
+# 테스트 결과
+*.log
+
+# 환경변수 파일
+.env
+
+# OS 별 쓰레기
+.DS_Store
+Thumbs.db
