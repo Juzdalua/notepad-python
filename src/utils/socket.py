@@ -8,6 +8,7 @@ connectFlag = False
 def connect():
     global connectFlag
     connectFlag = True
+    register()
     print("Connected ✅")
 
 @sio.event
@@ -39,7 +40,6 @@ def connect_to_server(url: str):
     try:
         sio.connect(url)
         print(f"{url}에 연결되었습니다.")
-        register()
         return True
     except Exception as e:
         print(f"연결 실패: {e}")
