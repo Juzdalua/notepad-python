@@ -7,8 +7,8 @@ sio = socketio.Client()
 connectFlag = False
 
 load_dotenv()
-url = os.getenv('SERVER_URL')
-port = os.getenv('SERVER_PORT')
+url = os.getenv('SOCKET_SERVER_URL')
+port = os.getenv('SOCKET_SERVER_PORT')
 server_url = f"{url}:{port}"
 
 @sio.event
