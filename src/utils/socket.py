@@ -15,6 +15,7 @@ def connect():
 def ping(data):
     print(f"[RECV]: {data}")
     sio.emit('pong','pong')
+    print('[SEND] pong')
 
 @sio.event
 def disconnect():
