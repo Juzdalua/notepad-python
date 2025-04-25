@@ -24,6 +24,11 @@ def ping(data):
   sio.emit('pong','pong')
   print('[SEND] pong')
 
+# 함수명이 이벤트키. 대소문자 구분해야함
+@sio.event
+def Turnon(data):
+  print(f"[RECV]: {data}")
+
 @sio.event
 def disconnect():
   global connectFlag
